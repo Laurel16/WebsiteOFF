@@ -8,7 +8,7 @@ from PIL import Image
 
 #%%writefile score.py
 #import streamlit as st
-import easyocr
+#//import easyocr (too uncomment)
 #from googletrans import Translator
 #from gtts import gTTS
 #from PIL import Image
@@ -22,14 +22,14 @@ st.write('hello 👋')
 
 
 
-# st.title("Upload + Classification Example")
+st.title("Upload + Classification Example")
 
-# uploaded_file = st.file_uploader("Choose an image...", type="jpg")
-# if uploaded_file is not None:
-#     image = Image.open(uploaded_file)
-#     st.image(image, caption='Uploaded Image.', use_column_width=True)
-#     st.write("")
-#     st.write("Classifying...")
+uploaded_file = st.file_uploader("Choose an image...", type="jpg")
+if uploaded_file is not None:
+    image = Image.open(uploaded_file)
+    st.image(image, caption='Uploaded Image.', use_column_width=True)
+    st.write("")
+    st.write("Classifying...")
     #label = predict(uploaded_file)
     #st.write('%s (%.2f%%)' % (label[1], label[2]*100))
 
@@ -51,19 +51,11 @@ st.write('hello 👋')
 
 #translator = Translator()
 
-def display_text(bounds):
-    text = []
-    for x in bounds:
-        t = x[1]
-        text.append(t)
-    text = ' '.join(text)
-    return text
+#### récupérer à partir d'ici
 
+\
 
-st.sidebar.title('Language Selection Menu')
-st.sidebar.subheader('Select...')
-src = st.sidebar.selectbox("From Language",['French', 'English'])
-
+#////// comnenté
 
 # st.sidebar.subheader('Select...')
 # destination = st.sidebar.selectbox("To Language",['English', 'French'])
@@ -86,74 +78,80 @@ src = st.sidebar.selectbox("From Language",['French', 'English'])
 #         st.sidebar.subheader('Enter Text!')
 
 
-st.set_option('deprecation.showfileUploaderEncoding',False)
-st.title('Open Food Facts categories predictions')
-st.subheader('Ingredients photo recognition')
-st.text('Select source Language from the Sidebar and upload your photo.')
+# #// fin du comment
 
-image_file = st.file_uploader("Upload Image",type=['jpg','png','jpeg','JPG'])
+# st.set_option('deprecation.showfileUploaderEncoding',False)
+# st.title('Open Food Facts categories predictions')
+# st.subheader('Ingredients photo recognition')
+# st.text('Select source Language from the Sidebar and upload your photo.')
 
-
-if st.button("Convert"):
-
-    if image_file is not None:
-        img = Image.open(image_file)
-        img = np.array(img)
-
-        st.subheader('Image you Uploaded...')
-        st.image(image_file,width=450)
-
-        if src=='English':
-            with st.spinner('Extracting Text from given Image'):
-                eng_reader = easyocr.Reader(['en'])
-                detected_text = eng_reader.readtext(img)
-            st.subheader('Extracted text is ...')
-            text = display_text(detected_text)
-            st.write(text)
-
-        elif src=='French':
-            with st.spinner('Extracting Text from given Image'):
-                swahili_reader = easyocr.Reader(['fr'])
-                detected_text = swahili_reader.readtext(img)
-            st.subheader('Extracted text is ...')
-            text = display_text(detected_text)
-            st.write(text)
+# image_file = st.file_uploader("Upload Image",type=['jpg','png','jpeg','JPG'])
 
 
+# if st.button("Convert"):
 
-        # st.write('')
-        # ta_tts = gTTS(text,lang=f'{source}')
-        # ta_tts.save('trans.mp3')
-        # st.audio('trans.mp3',format='audio/mp3')
+#     if image_file is not None:
+#         img = Image.open(image_file)
+#         img = np.array(img)
 
+#         st.subheader('Image you Uploaded...')
+#         st.image(image_file,width=450)
 
-        # with st.spinner('Translating Text...'):
-        #     result = translator.translate(text, src=f'{source}', dest=f'{dst}').text
-        # st.subheader("Translated Text is ...")
-        # st.write(result)
+#         if src=='English':
+#             with st.spinner('Extracting Text from given Image'):
+#                 eng_reader = easyocr.Reader(['en'])
+#                 detected_text = eng_reader.readtext(img)
+#             st.subheader('Extracted text is ...')
+#             text = display_text(detected_text)
+#             st.write(text)
 
-        # st.write('')
-        # st.header('Generated Audio')
-
-        # with st.spinner('Generating Audio ...'):
-        #     ta_tts2 = gTTS(result,lang=f'{dst}')
-        #     ta_tts2.save('trans2.mp3')
-        # st.audio('trans2.mp3',format='audio/mp3')
-        # st.balloons()
-
-
-    else:
-        st.subheader('Image not found! Please Upload an Image.')
-
-st.subheader('Categorie prediction')
-st.text('''Your product's categorie should be...''')
-
-#!nohup streamlit run score.py &
+#         elif src=='French':
+#             with st.spinner('Extracting Text from given Image'):
+#                 swahili_reader = easyocr.Reader(['fr'])
+#                 detected_text = swahili_reader.readtext(img)
+#             st.subheader('Extracted text is ...')
+#             text = display_text(detected_text)
+#             st.write(text)
 
 
+# #// tout ça commenté
 
-#from pyngrok import ngrok
+#         # st.write('')
+#         # ta_tts = gTTS(text,lang=f'{source}')
+#         # ta_tts.save('trans.mp3')
+#         # st.audio('trans.mp3',format='audio/mp3')
 
-#url = ngrok.connect(port=8501)
-#url
+
+#         # with st.spinner('Translating Text...'):
+#         #     result = translator.translate(text, src=f'{source}', dest=f'{dst}').text
+#         # st.subheader("Translated Text is ...")
+#         # st.write(result)
+
+#         # st.write('')
+#         # st.header('Generated Audio')
+
+#         # with st.spinner('Generating Audio ...'):
+#         #     ta_tts2 = gTTS(result,lang=f'{dst}')
+#         #     ta_tts2.save('trans2.mp3')
+#         # st.audio('trans2.mp3',format='audio/mp3')
+#         # st.balloons()
+
+# #// fin du comment
+
+#     else:
+#         st.subheader('Image not found! Please Upload an Image.')
+
+# st.subheader('Categorie prediction')
+# st.text('''Your product's categorie should be...''')
+
+# #// tout le reste commenté
+
+# #!nohup streamlit run score.py &
+
+
+
+# #from pyngrok import ngrok
+
+# #url = ngrok.connect(port=8501)
+# #url
 
