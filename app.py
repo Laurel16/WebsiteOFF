@@ -8,17 +8,19 @@ from PIL import Image
 
 #%%writefile score.py
 #import streamlit as st
-import easyocr
+#import easyocr
 #from googletrans import Translator
 #from gtts import gTTS
 #from PIL import Image
 #import numpy as np
+import cv2
+import pytesseract
+custom_config = r'--oem 3 --psm 4'
+
+
 
 
 st.write('hello 👋')
-
-
-
 
 
 
@@ -109,20 +111,23 @@ if st.button("Convert"):
         st.subheader('Image you uploaded...')
         st.image(image_file,width=450)
 
-        if src=='English':
-            with st.spinner('Extracting Text from given Image'):
-                eng_reader = easyocr.Reader(['en'])
-                detected_text = eng_reader.readtext(img)
-            st.subheader('Extracted text is ...')
-            text = display_text(detected_text)
-            st.write(text)
+        # if src=='English':
+        #     with st.spinner('Extracting Text from given Image'):
+        #         eng_reader = easyocr.Reader(['en'])
+        #         detected_text = eng_reader.readtext(img)
+        #     st.subheader('Extracted text is ...')
+        #     text = display_text(detected_text)
+        #     st.write(text)
 
-        elif src=='French':
+        if src=='French':
             with st.spinner('Extracting Text from given Image'):
-                swahili_reader = easyocr.Reader(['fr'])
-                detected_text = swahili_reader.readtext(img)
+                #swahili_reader = easyocr.Reader(['fra'])
+                #detected_text = swahili_reader.readtext(img)
+
+
+                text = pytesseract.image_to_string(img, config=custom_config, lang="fra")
             st.subheader('Extracted text is ...')
-            text = display_text(detected_text)
+            #text = display_text(text)
             st.write(text)
 
 
