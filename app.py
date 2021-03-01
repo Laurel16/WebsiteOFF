@@ -13,7 +13,7 @@ from PIL import Image
 #from gtts import gTTS
 #from PIL import Image
 #import numpy as np
-import cv2
+#import cv2
 import pytesseract
 custom_config = r'--oem 3 --psm 4'
 
