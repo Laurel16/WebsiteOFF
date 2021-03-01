@@ -28,7 +28,7 @@ deploy_heroku:
 # ----------------------------------
 install:
 	@pip install . -U
-	@apt-get install tesseract-ocr tesseract-ocr-fra -y
+
 
 clean:
 	@rm -fr */__pycache__
