@@ -4,4 +4,5 @@ tesseract-ocr-fra
 libtesseract-dev
 libleptonica-dev
 libarchive-dev
+libarchive13
 
