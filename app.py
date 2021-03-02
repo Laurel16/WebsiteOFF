@@ -14,11 +14,11 @@ from PIL import Image
 #from PIL import Image
 #import numpy as np
 #import cv2
-import pytesseract
+import pytesseract as pt
 custom_config = r'--oem 3 --psm 4'
 
 
-pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
+#pt.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
 #image = Image.open(path)
 #t = pytesseract.image_to_string(image)
 #line_bot_api.reply_message(event.reply_token,TextSendMessage(text=t))
@@ -131,7 +131,7 @@ if st.button("Convert"):
                 #detected_text = swahili_reader.readtext(img)
 
 
-                text = pytesseract.image_to_string(img, config=custom_config, lang="fra")
+                text = pt.image_to_string(img, config=custom_config, lang="fra")
             st.subheader('Extracted text is ...')
             #text = display_text(text)
             st.write(text)
