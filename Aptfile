@@ -1,5 +1,6 @@
+pkg-config
 tesseract-ocr
 tesseract-ocr-fra
 libtesseract-dev
 libleptonica-dev
-pkg-config
+
