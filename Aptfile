@@ -2,8 +2,6 @@ pkg-config
 libtesseract-dev
 libleptonica-dev
 libarchive-dev
-libarchive13
-liblept5
 tesseract-ocr
 tesseract-ocr-fra
 
