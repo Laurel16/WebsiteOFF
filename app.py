@@ -14,10 +14,10 @@ from PIL import Image
 #from PIL import Image
 #import numpy as np
 #import cv2
-#import pytesseract as pt
+import pytesseract as pt
 custom_config = r'--oem 3 --psm 4'
-import tesserocr
-api = tesserocr.PyTessBaseAPI()
+#mport tesserocr
+#api = tesserocr.PyTessBaseAPI()
 
 
 #pt.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
@@ -114,7 +114,7 @@ if st.button("Convert"):
 
     if image_file is not None:
         img = Image.open(image_file)
-        #img = np.array(img)
+        img = np.array(img)
 
         st.subheader('Image you uploaded...')
         st.image(image_file,width=450)
@@ -132,9 +132,9 @@ if st.button("Convert"):
                 #swahili_reader = easyocr.Reader(['fra'])
                 #detected_text = swahili_reader.readtext(img)
 
-                api.SetImage(img)
-                text = api.GetUTF8Text()
-                #text = pt.image_to_string(img, config=custom_config, lang="fra")
+                #api.SetImage(img)
+                #text = api.GetUTF8Text()
+                text = pt.image_to_string(img, config=custom_config, lang="fra")
             st.subheader('Extracted text is ...')
             #text = display_text(text)
             st.write(text)
