@@ -1,0 +1,9 @@
+streamlit
+pytesseract
+joblib
+pandas
+sklearn
+numpy
+
+
+

@@ -1,5 +1,7 @@
+
 import streamlit as st
 import numpy as np
+import joblib
 import pandas as pd
 import datetime
 import requests
@@ -20,7 +22,7 @@ custom_config = r'--oem 3 --psm 4'
 #api = tesserocr.PyTessBaseAPI()
 
 
-pt.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
+pt.pytesseract.tesseract_cmd = '/usr/bin/tesseract'
 #image = Image.open(path)
 #t = pytesseract.image_to_string(image)
 #line_bot_api.reply_message(event.reply_token,TextSendMessage(text=t))
@@ -138,6 +140,11 @@ if st.button("Convert"):
             st.subheader('Extracted text is ...')
             #text = display_text(text)
             st.write(text)
+            st.subheader('Categorie prediction')
+            st.text('''Your product's categorie should be...''')
+            model = joblib.load('NB_pipeline_pnns_2.joblib')
+            prediction = model.predict([text])
+            st.write(prediction[0])
 
 
 #// tout ça commenté
@@ -167,8 +174,7 @@ if st.button("Convert"):
     else:
         st.subheader('Image not found! Please Upload an Image.')
 
-st.subheader('Categorie prediction')
-st.text('''Your product's categorie should be...''')
+
 
 #// tout le reste commenté
 
@@ -180,4 +186,3 @@ st.text('''Your product's categorie should be...''')
 
 #url = ngrok.connect(port=8501)
 #url
-
