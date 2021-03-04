@@ -1,7 +1,7 @@
 FROM python:3.8-buster
 
 COPY app/ app
-COPY NB_pipeline_pnns_2.joblib /NB_pipeline_pnns_2.joblib
+
 
 RUN pip install --upgrade pip
 RUN pip install -r app/requirements.txt

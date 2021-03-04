@@ -5,6 +5,7 @@ import joblib
 import pandas as pd
 import datetime
 import requests
+import time
 import PIL
 from PIL import Image
 
@@ -28,10 +29,14 @@ pt.pytesseract.tesseract_cmd = '/usr/bin/tesseract'
 #line_bot_api.reply_message(event.reply_token,TextSendMessage(text=t))
 
 
+#control + cmd + espace pour les smileys
 
-
-st.write('hello 👋')
-
+st.write('Hello 👋')
+#image = Image.open('test.jpeg')
+#st.image(image, caption='Le Wagon', use_column_width=True)
+st.image('app/image/off.png', width=300)
+#if st.button('Predict'):
+    #st.balloons()
 
 
 # st.title("Upload + Classification Example")
@@ -49,16 +54,22 @@ st.write('hello 👋')
     #image = Image.open(uploaded_file)
     #st.image(image, caption='Uploaded Image.')
 
-# CSS = """
-# h1 {
-#     color: red;
-# }
+CSS = """
+ h1 {
+    color: #822659;
+ }
 
+ h2 {
+ color: #b34180
+ }
+
+
+
+"""
 # .sidebar .sidebar-content { background-image: linear-gradient(#2e7bcf,#2e7bcf); color: white; }
 
-# }
-# """
-# st.write(f'<style>{CSS}</style>', unsafe_allow_html=True)
+
+st.write(f'<style>{CSS}</style>', unsafe_allow_html=True)
 
 
 #translator = Translator()
@@ -74,9 +85,9 @@ def display_text(bounds):
     return text
 
 
-st.sidebar.title('Language Selection Menu')
-st.sidebar.subheader('Select...')
-src = st.sidebar.selectbox("From Language",['French', 'English'])
+#st.sidebar.title('Language Selection Menu')
+#st.sidebar.subheader('Select...')
+#src = st.sidebar.selectbox("From Language",['French', 'English'])
 
 
 #////// comnenté
@@ -106,20 +117,21 @@ src = st.sidebar.selectbox("From Language",['French', 'English'])
 
 st.set_option('deprecation.showfileUploaderEncoding',False)
 st.title('Open Food Facts categories predictions')
-st.subheader('Ingredients photo recognition')
-st.text('Select source Language from the Sidebar and upload your photo.')
+st.header('Ingredients photo recognition')
+#st.subheader('Upload your photo')
 
-image_file = st.file_uploader("Upload Image",type=['jpg','png','jpeg','JPG'])
+image_file = st.file_uploader("Upload Image", type=['jpg','png','jpeg','JPG'])
 
 
 if st.button("Convert"):
-
+    start = time.time()
     if image_file is not None:
         img = Image.open(image_file)
         img = np.array(img)
 
         st.subheader('Image you uploaded...')
         st.image(image_file,width=450)
+        #st.balloons()
 
         # if src=='English':
         #     with st.spinner('Extracting Text from given Image'):
@@ -129,22 +141,36 @@ if st.button("Convert"):
         #     text = display_text(detected_text)
         #     st.write(text)
 
-        if src=='French':
-            with st.spinner('Extracting Text from given Image'):
+        #if src=='French':
+        with st.spinner('Extracting Text from given Image'):
                 #swahili_reader = easyocr.Reader(['fra'])
                 #detected_text = swahili_reader.readtext(img)
 
                 #api.SetImage(img)
                 #text = api.GetUTF8Text()
-                text = pt.image_to_string(img, config=custom_config, lang="fra")
+            text = pt.image_to_string(img, config=custom_config, lang="fra")
             st.subheader('Extracted text is ...')
+            end = time.time()
+            st.write(end - start)
+
             #text = display_text(text)
             st.write(text)
             st.subheader('Categorie prediction')
             st.text('''Your product's categorie should be...''')
-            model = joblib.load('NB_pipeline_pnns_2.joblib')
-            prediction = model.predict([text])
-            st.write(prediction[0])
+
+
+            url = 'https://apioff-kdwmcasooa-ew.a.run.app/predict_probabilities?'
+            params={'text': text}
+            result = requests.get(url, params=params)
+            #st.write(result.headers)
+            #predict = result[0]
+            json = result.json()
+            st.write(json['result'])
+
+
+            # model = joblib.load('NB_pipeline_pnns_2.joblib')
+            # prediction = model.predict([text])
+            # st.write(prediction[0])
 
 
 #// tout ça commenté
@@ -173,6 +199,7 @@ if st.button("Convert"):
 
     else:
         st.subheader('Image not found! Please Upload an Image.')
+
 
 
 
