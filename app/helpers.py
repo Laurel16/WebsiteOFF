@@ -1,8 +1,10 @@
 def cat_emoij(x, my_dict):
+    if x.startswith("J'hésite"):
+        return '🤔'
+
     for k, v in my_dict.items():
-        if x.startswith(k):
+        if k in x:
             return v
-    return '🤔'
 
 
 list_categories = {'appetizers' : '🥨',
